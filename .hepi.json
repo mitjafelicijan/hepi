@@ -1,0 +1,623 @@
+{
+  "test": {
+    "delete_request": {
+      "args": {
+        "id": "770086"
+      },
+      "data": "",
+      "files": {},
+      "form": {},
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d800-0f5a84b2067d676f7e56224d"
+      },
+      "json": null,
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/delete?id=770086"
+    },
+    "delete_test": {
+      "args": {
+        "id": "517736",
+        "reason": "cleanup"
+      },
+      "data": "",
+      "files": {},
+      "form": {},
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d20c-24484e9a6cab84c275f96494"
+      },
+      "json": null,
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/delete?id=517736\u0026reason=cleanup"
+    },
+    "env_substitution": {
+      "args": {},
+      "data": {
+        "custom_var": "SuccessFromEnv",
+        "system_path": "/home/m/.opencode/bin:/home/m/.pyenv/shims:/home/m/.pyenv/bin:/home/m/.opencode/bin:/home/m/.pyenv/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin:/usr/lib/jvm/default-jdk/bin:/usr/lib/jvm/default-jre/bin:/home/m/.local/bin:/home/m/.cargo/bin:/home/m/go/bin:/home/m/Applications:/home/m/Applications/odin-linux-amd64-nightly+2025-12-04/:/home/m/.local/bin:/home/m/.lmstudio/bin:/usr/lib/jvm/default-jdk/bin:/usr/lib/jvm/default-jre/bin:/home/m/.local/bin:/home/m/.cargo/bin:/home/m/go/bin:/home/m/Applications:/home/m/Applications/odin-linux-amd64-nightly+2025-12-04/:/home/m/.local/bin:/home/m/.lmstudio/bin:/home/m/.local/bin:/home/m/.lmstudio/bin"
+      },
+      "files": {},
+      "form": {},
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "714",
+        "Content-Type": "application/json",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d800-249dc2170e5d229e2b833d80"
+      },
+      "json": {
+        "custom_var": "SuccessFromEnv",
+        "system_path": "/home/m/.opencode/bin:/home/m/.pyenv/shims:/home/m/.pyenv/bin:/home/m/.opencode/bin:/home/m/.pyenv/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin:/usr/lib/jvm/default-jdk/bin:/usr/lib/jvm/default-jre/bin:/home/m/.local/bin:/home/m/.cargo/bin:/home/m/go/bin:/home/m/Applications:/home/m/Applications/odin-linux-amd64-nightly+2025-12-04/:/home/m/.local/bin:/home/m/.lmstudio/bin:/usr/lib/jvm/default-jdk/bin:/usr/lib/jvm/default-jre/bin:/home/m/.local/bin:/home/m/.cargo/bin:/home/m/go/bin:/home/m/Applications:/home/m/Applications/odin-linux-amd64-nightly+2025-12-04/:/home/m/.local/bin:/home/m/.lmstudio/bin:/home/m/.local/bin:/home/m/.lmstudio/bin"
+      },
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/post"
+    },
+    "env_test": {
+      "args": {},
+      "data": {
+        "value": "SuccessFromEnv"
+      },
+      "files": {},
+      "form": {},
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "26",
+        "Content-Type": "application/json",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d20c-0415d8a7606e1502224becd4"
+      },
+      "json": {
+        "value": "SuccessFromEnv"
+      },
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/post"
+    },
+    "faker_generators": {
+      "args": {},
+      "data": {
+        "datetime": "14:49:22",
+        "email": "DoTSnLZ@DsdxCIF.net",
+        "int": "345484",
+        "ipv4": "114.125.34.112",
+        "lat": "-47.478275",
+        "long": "-174.924255",
+        "password": "hMFTkRaaZVtMxLmpvJukOHXJHifQpkixKUAbBobwkXRcdZeRdM",
+        "phone": "810-273-4615",
+        "sentence": "Dolorem dignissimos nostrum libero fuga adipisci.",
+        "url": "https://dupbrbs.top/AyuvsRg",
+        "uuid": "ae7cd496-0a62-48e8-880c-657421ee091a",
+        "word": "culpa"
+      },
+      "files": {},
+      "form": {},
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "379",
+        "Content-Type": "application/json",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d800-221a27e55a9f8d192d30e6e3"
+      },
+      "json": {
+        "datetime": "14:49:22",
+        "email": "DoTSnLZ@DsdxCIF.net",
+        "int": "345484",
+        "ipv4": "114.125.34.112",
+        "lat": "-47.478275",
+        "long": "-174.924255",
+        "password": "hMFTkRaaZVtMxLmpvJukOHXJHifQpkixKUAbBobwkXRcdZeRdM",
+        "phone": "810-273-4615",
+        "sentence": "Dolorem dignissimos nostrum libero fuga adipisci.",
+        "url": "https://dupbrbs.top/AyuvsRg",
+        "uuid": "ae7cd496-0a62-48e8-880c-657421ee091a",
+        "word": "culpa"
+      },
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/post"
+    },
+    "faker_test": {
+      "args": {},
+      "data": {
+        "datetime": "23:49:40",
+        "email": "gKhUwpm@Tmvffke.top",
+        "int": "404037",
+        "name": "Dr. Mafalda Quitzon",
+        "password": "cqwGLjplaBuXrnMNPDCqdhPMnnAIKvDpivpJXWTQqrYWXBPqci",
+        "phone": "782-631-0954",
+        "sentence": "Non iusto repellendus sit voluptatem praesentium.",
+        "url": "http://rjwevjn.biz/HrwGGNg.jpg",
+        "username": "oDcnofM",
+        "word": "maiores"
+      },
+      "files": {},
+      "form": {},
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "324",
+        "Content-Type": "application/json",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d20c-7f40520d6520305a19762a14"
+      },
+      "json": {
+        "datetime": "23:49:40",
+        "email": "gKhUwpm@Tmvffke.top",
+        "int": "404037",
+        "name": "Dr. Mafalda Quitzon",
+        "password": "cqwGLjplaBuXrnMNPDCqdhPMnnAIKvDpivpJXWTQqrYWXBPqci",
+        "phone": "782-631-0954",
+        "sentence": "Non iusto repellendus sit voluptatem praesentium.",
+        "url": "http://rjwevjn.biz/HrwGGNg.jpg",
+        "username": "oDcnofM",
+        "word": "maiores"
+      },
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/post"
+    },
+    "file_upload": {
+      "args": {},
+      "data": "",
+      "files": {
+        "image": "data:application/octet-stream;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAAXNSR0IB2cksfwAAAARnQU1BAACxjwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+oCBBcPICs234EAAAUnSURBVFjDjVlblqQ6DLMMVM3G7k7vMhs0H3n5FXrqnO6iIJDEliXbQP/7/8Ct+nzkvo7n0OfAcx33CfngPvGcel96f/BzKq9DLvxcel/6fPF89Ln0/uh9Hc9Xnw/ur/I87lOfrz5/cF/H/cF94f6D+1Qex/PFc+nzkefUn/O4P8ITPPU59bnaSZFLRYXSPiDbIdBOUMa1cWZ+5m+KECIQMAygHw0I2shx85plzAMK+wWdQ4g5knEGxjUhniDWJCJCiTvpjyfHRT8E0naGZgLNFhC/daYJxI/0u3AGCBvqZ9HvcNf6uaf5TKuph+GQ1ri2Oq7On84zWACo3B93OtYLNMBQnY/DFvxsuyfCY21sxfi677KwUVzbuF+FNZg3ayg2yYFvb3OuqDFR5dfPaIxhI62t3KcgBjLh54O1HdF8hhQZE9eM4YKw7+AzDT6afMB+YOMOAwBcHoGgCrwXF3EdoggyinBAXtDsQ2OPRUv9a4WYgROFGNcr3NHFY7g5orgPB9V4zISEuECcD2JkQBGY3zQ7cqNQrYGDxew9fSrFIPH5H8sS6wfnblBFtlszgxCYeISAhItgBG6GCKFV4PnnWpLyqpJXtHSKC+GUgmjePhBdWEyEPGaEI0K3u8hliDsxcc2B9i5ALKWjHZwlSQ3P0vMCRd6ECP4MQxTCL4WRYO14tRpdmQtutRspQRTwRUOwJEdpeUQpa+KXBeszvOsDC9mB5yVII7Z5aZiZxc3Y6IlW+YdDDAyAPVwS+PHbJuawQQz01+mXRQw+lZ4MrjGPxa9xThLexkN0Cg9aplxwajzEqPUTMbq4HzTKY0kU2RYm0rnLYRjSrZbhoTLkcDAGyWnkQEZ7locsA5Mep9HAXDrK7hYUkciALdicdyYAGILNEj+BdiumMItmXx42me6IDk2ZnPcjl7jBWjs+dScMQQUdzcPd2lkNRSTOhG6saViIMw1zeoJKON6/4OA9/miCHSJQJxiL1dtNiX+HoRFqNCD4rmDuDHagZkARZS1qPfFBcA9DYRMdsqFgJgCyJtLhUHVih02RZxfgR3IFOOmTrPxVZn9l0aYolptjHoUxwzwx8876yS7YvsqChbTMEiPTEtgFdaGbIcKY7cdfakEmTp/gZ5IfDQkNACG46MGLPWJqxI2wgylNxVuhBy8EGhzQ7AxLx/viuG4G9OWGSirolanmQn0hQiM+kgI+ce8LBJFDwuiUafzYxb3U17q9Buu9QixiFBApBBAXAIsD7Ioj70RLmmTlF1dNcwczTBuxKCorKAIhORA1KIYRangb4xVeFXf0uVbyXUDAZkx0dYO26SEC0BoELhKlTqiRSpZxP+ruD6uUo6LTsvmEamgNUfzSE6pI9/dnaNmIkfdeWU07eJ/J9FoQlGAUJ8vg+tpuiwS6y6dyGymziUnmWTRQ4MCtKPJixL4skGX3jXaKtk3Rj05pG7MTsYMJJ5Xj12KrVqKRUnL8G04gMgCq7DQIMLyBuC0L8S9tTaQkDHUOt1geCzDT/xglMuYTPL1zljNMzSB4NzGb5RUDutsYyuasjTuuFkrdY6/pfLcwSmR57GtCLNJEalNvkbYqX4T8xNbc8PFnEo32zic0JgtBxCy6y9c6Bf2uDndsKK0XMXAhzRyJsGeB8LYH4U0FgoaR2/7sgnLuCaJyD0cuT5OFoH5+CT5WyTJ3kMa2r/PSSPpnaiw7EKZH0uKW5baY+vMl/PuLO7i6E/4PfGcf5FeHgpzjrs3QplH0Wc4a/hd72rJ2/K+6rgAAAABJRU5ErkJggg=="
+      },
+      "form": {
+        "description": "A test image"
+      },
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "1862",
+        "Content-Type": "multipart/form-data; boundary=1ea3573bc339e9b78cb62cabd7e8952e20a30ae9fcaad079ae09ea2fd3d6",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d800-0a4bffb61a8bbfca4daf6c2c"
+      },
+      "json": null,
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/post"
+    },
+    "form_and_params_test": {
+      "args": {
+        "env_key": "SuccessFromEnv",
+        "query_key": "query_value_517877"
+      },
+      "data": "",
+      "files": {},
+      "form": {
+        "another_env_key": "SuccessFromEnv",
+        "form_key": "form_value_Ms. Rosella Konopelski"
+      },
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "73",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d20c-1f4fa55a4d753ac302955ce7"
+      },
+      "json": null,
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/post?env_key=SuccessFromEnv\u0026query_key=query_value_517877"
+    },
+    "form_data": {
+      "args": {},
+      "data": "",
+      "files": {},
+      "form": {
+        "email": "UlEuApN@vKWDkdY.biz",
+        "type": "guest",
+        "username": "spUGBEs"
+      },
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "55",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d800-62aace844a33e4ef27dab9ae"
+      },
+      "json": null,
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/post"
+    },
+    "get_request": {
+      "args": {
+        "foo": "bar",
+        "random": "219233"
+      },
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d7ff-51fdaf642ff933db09980bb8"
+      },
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/get?foo=bar\u0026random=219233"
+    },
+    "header_sub_test": {
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d35f-792a8a460f486c2d46495de8",
+        "X-Prev-Name": "Dr. Mafalda Quitzon",
+        "X-Random-Id": "ID-605358",
+        "X-Test-Var": "SuccessFromEnv"
+      }
+    },
+    "header_substitution": {
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d801-568696376d8ce9550d1a95ec",
+        "X-Auth-Token": "Bearer dnuhrlHsYNQhLBgUjvtMaVviLSbRupMOAdkDRVbP.dnuhrlHsYNQhLBgUjvtMaVviLSbRupMOAdkDRVbP.dnuhrlHsYNQhLBgUjvtMaVviLSbRupMOAdkDRVbP",
+        "X-Custom-Env": "SuccessFromEnv"
+      }
+    },
+    "httpbin_nested_reuse_test": {
+      "args": {},
+      "data": {
+        "created_at": "23:33:19",
+        "user_name": "Lord Anastacio Wintheiser"
+      },
+      "files": {},
+      "form": {},
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "65",
+        "Content-Type": "application/json",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d360-24034ed24aa071c73269ff86"
+      },
+      "json": {
+        "created_at": "23:33:19",
+        "user_name": "Lord Anastacio Wintheiser"
+      },
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/post"
+    },
+    "httpbin_reuse_test": {
+      "args": {},
+      "data": {
+        "env_val_from_env_test": "SuccessFromEnv",
+        "name_from_faker": "Dr. Mafalda Quitzon"
+      },
+      "files": {},
+      "form": {},
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "82",
+        "Content-Type": "application/json",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d360-523522cf600eda3054bd5efb"
+      },
+      "json": {
+        "env_val_from_env_test": "SuccessFromEnv",
+        "name_from_faker": "Dr. Mafalda Quitzon"
+      },
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/post"
+    },
+    "json_nested": {
+      "args": {},
+      "data": {
+        "meta": {
+          "timestamp": "2024-01-19 19:34:40"
+        },
+        "user": {
+          "profile": {
+            "first_name": "Miguel",
+            "last_name": "Goodwin"
+          },
+          "tags": [
+            "api",
+            "tester",
+            "sit"
+          ]
+        }
+      },
+      "files": {},
+      "form": {},
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "139",
+        "Content-Type": "application/json",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d800-4dede1e91ba4abba37af9dbc"
+      },
+      "json": {
+        "meta": {
+          "timestamp": "2024-01-19 19:34:40"
+        },
+        "user": {
+          "profile": {
+            "first_name": "Miguel",
+            "last_name": "Goodwin"
+          },
+          "tags": [
+            "api",
+            "tester",
+            "sit"
+          ]
+        }
+      },
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/post"
+    },
+    "nested_json_test": {
+      "args": {},
+      "data": {
+        "metadata": {
+          "created_at": "23:33:19"
+        },
+        "tags": [
+          "test",
+          "nesting",
+          "blanditiis"
+        ],
+        "user": {
+          "contacts": [
+            {
+              "type": "email",
+              "value": "SRhyfBU@XaxqWgM.net"
+            },
+            {
+              "type": "phone",
+              "value": "734-596-2181"
+            }
+          ],
+          "name": "Lord Anastacio Wintheiser"
+        }
+      },
+      "files": {},
+      "form": {},
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "221",
+        "Content-Type": "application/json",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d35f-69f1b02d6ff9141134737de1"
+      },
+      "json": {
+        "metadata": {
+          "created_at": "23:33:19"
+        },
+        "tags": [
+          "test",
+          "nesting",
+          "blanditiis"
+        ],
+        "user": {
+          "contacts": [
+            {
+              "type": "email",
+              "value": "SRhyfBU@XaxqWgM.net"
+            },
+            {
+              "type": "phone",
+              "value": "734-596-2181"
+            }
+          ],
+          "name": "Lord Anastacio Wintheiser"
+        }
+      },
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/post"
+    },
+    "oneof_test": {
+      "args": {},
+      "data": {
+        "choice": "red",
+        "priority": "3"
+      },
+      "files": {},
+      "form": {},
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "31",
+        "Content-Type": "application/json",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d800-209091f1421f3d0268100728"
+      },
+      "json": {
+        "choice": "red",
+        "priority": "3"
+      },
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/post"
+    },
+    "patch_request": {
+      "args": {},
+      "data": "",
+      "files": {},
+      "form": {
+        "op": "replace",
+        "path": "/settings",
+        "value": "enabled"
+      },
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "41",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d7ff-0d6a3f561d5e60a379496c7f"
+      },
+      "json": null,
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/patch"
+    },
+    "patch_test": {
+      "args": {},
+      "data": "",
+      "files": {},
+      "form": {
+        "op": "replace",
+        "path": "/user/name",
+        "value": "Queen Susan Schamberger"
+      },
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "60",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d20c-7f09cd1b59394344245cd899"
+      },
+      "json": null,
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/patch"
+    },
+    "post_request": {
+      "args": {},
+      "data": {
+        "action": "create",
+        "name": "Prof. Lucious Mohr"
+      },
+      "files": {},
+      "form": {},
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "47",
+        "Content-Type": "application/json",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d7ff-5c2564552d9e0bc21161a790"
+      },
+      "json": {
+        "action": "create",
+        "name": "Prof. Lucious Mohr"
+      },
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/post"
+    },
+    "put_request": {
+      "args": {},
+      "data": {
+        "id": "149440",
+        "status": "updated"
+      },
+      "files": {},
+      "form": {},
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "34",
+        "Content-Type": "application/json",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d7ff-48e37ade79736669272f0174"
+      },
+      "json": {
+        "id": "149440",
+        "status": "updated"
+      },
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/put"
+    },
+    "put_test": {
+      "args": {},
+      "data": {
+        "fixed_val": "hello",
+        "random_val": "sunt",
+        "updated": true
+      },
+      "files": {},
+      "form": {},
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "56",
+        "Content-Type": "application/json",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d20c-56c5e37834b8c66d52fa5ac2"
+      },
+      "json": {
+        "fixed_val": "hello",
+        "random_val": "sunt",
+        "updated": true
+      },
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/put"
+    },
+    "result_reuse_nested": {
+      "args": {},
+      "data": {
+        "first_tag": "api",
+        "full_name": "Miguel Goodwin"
+      },
+      "files": {},
+      "form": {},
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "48",
+        "Content-Type": "application/json",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d801-5d0bcd2842d737f939747583"
+      },
+      "json": {
+        "first_tag": "api",
+        "full_name": "Miguel Goodwin"
+      },
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/post"
+    },
+    "result_reuse_simple": {
+      "args": {},
+      "data": {
+        "source_get_foo": "bar",
+        "source_post_name": "Prof. Lucious Mohr"
+      },
+      "files": {},
+      "form": {},
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "64",
+        "Content-Type": "application/json",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d801-68a44f992e0998374892ea6a"
+      },
+      "json": {
+        "source_get_foo": "bar",
+        "source_post_name": "Prof. Lucious Mohr"
+      },
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/post"
+    },
+    "upload_test": {
+      "args": {},
+      "data": "",
+      "files": {
+        "image": "data:application/octet-stream;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAAXNSR0IB2cksfwAAAARnQU1BAACxjwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+oCBBcPICs234EAAAUnSURBVFjDjVlblqQ6DLMMVM3G7k7vMhs0H3n5FXrqnO6iIJDEliXbQP/7/8Ct+nzkvo7n0OfAcx33CfngPvGcel96f/BzKq9DLvxcel/6fPF89Ln0/uh9Hc9Xnw/ur/I87lOfrz5/cF/H/cF94f6D+1Qex/PFc+nzkefUn/O4P8ITPPU59bnaSZFLRYXSPiDbIdBOUMa1cWZ+5m+KECIQMAygHw0I2shx85plzAMK+wWdQ4g5knEGxjUhniDWJCJCiTvpjyfHRT8E0naGZgLNFhC/daYJxI/0u3AGCBvqZ9HvcNf6uaf5TKuph+GQ1ri2Oq7On84zWACo3B93OtYLNMBQnY/DFvxsuyfCY21sxfi677KwUVzbuF+FNZg3ayg2yYFvb3OuqDFR5dfPaIxhI62t3KcgBjLh54O1HdF8hhQZE9eM4YKw7+AzDT6afMB+YOMOAwBcHoGgCrwXF3EdoggyinBAXtDsQ2OPRUv9a4WYgROFGNcr3NHFY7g5orgPB9V4zISEuECcD2JkQBGY3zQ7cqNQrYGDxew9fSrFIPH5H8sS6wfnblBFtlszgxCYeISAhItgBG6GCKFV4PnnWpLyqpJXtHSKC+GUgmjePhBdWEyEPGaEI0K3u8hliDsxcc2B9i5ALKWjHZwlSQ3P0vMCRd6ECP4MQxTCL4WRYO14tRpdmQtutRspQRTwRUOwJEdpeUQpa+KXBeszvOsDC9mB5yVII7Z5aZiZxc3Y6IlW+YdDDAyAPVwS+PHbJuawQQz01+mXRQw+lZ4MrjGPxa9xThLexkN0Cg9aplxwajzEqPUTMbq4HzTKY0kU2RYm0rnLYRjSrZbhoTLkcDAGyWnkQEZ7locsA5Mep9HAXDrK7hYUkciALdicdyYAGILNEj+BdiumMItmXx42me6IDk2ZnPcjl7jBWjs+dScMQQUdzcPd2lkNRSTOhG6saViIMw1zeoJKON6/4OA9/miCHSJQJxiL1dtNiX+HoRFqNCD4rmDuDHagZkARZS1qPfFBcA9DYRMdsqFgJgCyJtLhUHVih02RZxfgR3IFOOmTrPxVZn9l0aYolptjHoUxwzwx8876yS7YvsqChbTMEiPTEtgFdaGbIcKY7cdfakEmTp/gZ5IfDQkNACG46MGLPWJqxI2wgylNxVuhBy8EGhzQ7AxLx/viuG4G9OWGSirolanmQn0hQiM+kgI+ce8LBJFDwuiUafzYxb3U17q9Buu9QixiFBApBBAXAIsD7Ioj70RLmmTlF1dNcwczTBuxKCorKAIhORA1KIYRangb4xVeFXf0uVbyXUDAZkx0dYO26SEC0BoELhKlTqiRSpZxP+ruD6uUo6LTsvmEamgNUfzSE6pI9/dnaNmIkfdeWU07eJ/J9FoQlGAUJ8vg+tpuiwS6y6dyGymziUnmWTRQ4MCtKPJixL4skGX3jXaKtk3Rj05pG7MTsYMJJ5Xj12KrVqKRUnL8G04gMgCq7DQIMLyBuC0L8S9tTaQkDHUOt1geCzDT/xglMuYTPL1zljNMzSB4NzGb5RUDutsYyuasjTuuFkrdY6/pfLcwSmR57GtCLNJEalNvkbYqX4T8xNbc8PFnEo32zic0JgtBxCy6y9c6Bf2uDndsKK0XMXAhzRyJsGeB8LYH4U0FgoaR2/7sgnLuCaJyD0cuT5OFoH5+CT5WyTJ3kMa2r/PSSPpnaiw7EKZH0uKW5baY+vMl/PuLO7i6E/4PfGcf5FeHgpzjrs3QplH0Wc4a/hd72rJ2/K+6rgAAAABJRU5ErkJggg=="
+      },
+      "form": {
+        "description": "Sample file upload",
+        "title": "My photo"
+      },
+      "headers": {
+        "Accept-Encoding": "gzip",
+        "Content-Length": "1990",
+        "Content-Type": "multipart/form-data; boundary=d156ff56d0b88ff47a924a44bbe6aa62465db84e8ad409eb6969842bee33",
+        "Host": "httpbin.org",
+        "User-Agent": "Go-http-client/2.0",
+        "X-Amzn-Trace-Id": "Root=1-6983d3ee-7e0b619f37b457ee0601d74d"
+      },
+      "json": null,
+      "origin": "93.103.154.56",
+      "url": "https://httpbin.org/post"
+    }
+  }
+}

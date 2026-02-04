@@ -1,0 +1,182 @@
+environments:
+  local:
+    host: https://httpbin.org
+  test:
+    host: https://httpbin.org
+
+requests:
+  # HTTP Methods
+  get_request:
+    method: GET
+    url: "{{host}}/get"
+    description: "Simple GET with query parameters"
+    params:
+      foo: bar
+      random: "[[int]]"
+
+  post_request:
+    method: POST
+    url: "{{host}}/post"
+    description: "Simple POST with JSON body"
+    json:
+      name: "[[name]]"
+      action: "create"
+
+  put_request:
+    method: PUT
+    url: "{{host}}/put"
+    description: "Simple PUT with JSON body"
+    json:
+      id: "[[int]]"
+      status: "updated"
+
+  patch_request:
+    method: PATCH
+    url: "{{host}}/patch"
+    description: "Simple PATCH with form data"
+    form:
+      op: "replace"
+      path: "/settings"
+      value: "enabled"
+
+  delete_request:
+    method: DELETE
+    url: "{{host}}/delete"
+    description: "Simple DELETE with query parameters"
+    params:
+      id: "[[int]]"
+
+  # Payloads
+  json_nested:
+    method: POST
+    url: "{{host}}/post"
+    description: "Nested JSON structure"
+    json:
+      user:
+        profile:
+          first_name: "[[first_name]]"
+          last_name: "[[last_name]]"
+        tags: ["api", "tester", "[[word]]"]
+      meta:
+        timestamp: "[[timestamp]]"
+
+  form_data:
+    method: POST
+    url: "{{host}}/post"
+    description: "Form encoded data"
+    form:
+      username: "[[username]]"
+      email: "[[email]]"
+      type: "[[oneof: admin, user, guest]]"
+
+  file_upload:
+    method: POST
+    url: "{{host}}/post"
+    description: "Multipart file upload with form fields"
+    form:
+      description: "A test image"
+    files:
+      image: "test.png"
+
+  # Transformations & Generators
+  faker_generators:
+    method: POST
+    url: "{{host}}/post"
+    description: "Testing various faker generators"
+    json:
+      int: "[[int]]"
+      phone: "[[phone]]"
+      datetime: "[[datetime]]"
+      lat: "[[lat]]"
+      long: "[[long]]"
+      email: "[[email]]"
+      ipv4: "[[ipv4]]"
+      password: "[[password]]"
+      url: "[[url]]"
+      uuid: "[[uuid_hyphenated]]"
+      word: "[[word]]"
+      sentence: "[[sentence]]"
+
+  oneof_test:
+    method: POST
+    url: "{{host}}/post"
+    description: "Testing oneof selection"
+    json:
+      choice: "[[oneof: red, green, blue]]"
+      priority: "[[oneof: 1, 2, 3, 4, 5]]"
+
+  # Substitutions & Reuse
+  env_substitution:
+    method: POST
+    url: "{{host}}/post"
+    description: "Testing environment variable substitution"
+    json:
+      system_path: "{{PATH}}"
+      custom_var: "{{HEPI_TEST_VAR}}"
+
+  header_substitution:
+    method: GET
+    url: "{{host}}/headers"
+    description: "Testing header substitution"
+    headers:
+      X-Custom-Env: "{{HEPI_TEST_VAR}}"
+      X-Request-ID: "REQ-[[int]]"
+      X-Auth-Token: "Bearer [[jwt]]"
+
+  result_reuse_simple:
+    method: POST
+    url: "{{host}}/post"
+    description: "Reusing results from get_request and post_request"
+    json:
+      source_get_foo: "{{get_request.args.foo}}"
+      source_post_name: "{{post_request.json.name}}"
+
+  result_reuse_nested:
+    method: POST
+    url: "{{host}}/post"
+    description: "Reusing results from json_nested"
+    json:
+      full_name: "{{json_nested.json.user.profile.first_name}} {{json_nested.json.user.profile.last_name}}"
+      first_tag: "{{json_nested.json.user.tags.0}}"
+
+  # Advanced
+  status_reporting:
+    method: GET
+    url: "{{host}}/status/[[oneof: 200, 201, 400, 401, 404, 500]]"
+    description: "Testing status code reporting"
+
+groups:
+  methods:
+    - get_request
+    - post_request
+    - put_request
+    - patch_request
+    - delete_request
+  payloads:
+    - json_nested
+    - form_data
+    - file_upload
+  generators:
+    - faker_generators
+    - oneof_test
+  substitutions:
+    - env_substitution
+    - header_substitution
+    - result_reuse_simple
+    - result_reuse_nested
+  all:
+    - get_request
+    - post_request
+    - put_request
+    - patch_request
+    - delete_request
+    - json_nested
+    - form_data
+    - file_upload
+    - faker_generators
+    - oneof_test
+    - env_substitution
+    - header_substitution
+    - result_reuse_simple
+    - result_reuse_nested
+    - status_reporting
