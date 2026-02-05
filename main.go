@@ -79,6 +79,7 @@ func main() {
 	reqNames := flag.String("req", "", "Comma-separated list of request names to execute")
 	groupName := flag.String("group", "", "Group to execute")
 	showHeaders := flag.Bool("headers", false, "Display response headers")
+	timeout := flag.Duration("timeout", 10*time.Second, "Request timeout duration")
 	flag.Parse()
 
 	if filePath == "" {
@@ -87,7 +88,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	runner, err := NewRunner(filePath, envName, statePath)
+	runner, err := NewRunner(filePath, envName, statePath, *timeout)
 	if err != nil {
 		log.Fatalf("Error: %v", err)
 	}
@@ -112,19 +113,19 @@ func main() {
 }
 
 // NewRunner initializes a new Hepi runner.
-func NewRunner(filePath, envName, stateFile string) (*Runner, error) {
+func NewRunner(filePath, envName, stateFile string, timeout time.Duration) (*Runner, error) {
 	data, err := os.ReadFile(filePath)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read file: %w", err)
+		return nil, fmt.Errorf("%sfailed to read file: %w%s", colorRed, err, colorReset)
 	}
 
 	var config Config
 	if err := yaml.Unmarshal(data, &config); err != nil {
-		return nil, fmt.Errorf("failed to parse YAML: %w", err)
+		return nil, fmt.Errorf("%sfailed to parse YAML: %w%s", colorRed, err, colorReset)
 	}
 
 	if config.Environments.Kind != yaml.MappingNode {
-		return nil, fmt.Errorf("environments must be a mapping")
+		return nil, fmt.Errorf("%senvironments must be a mapping%s", colorRed, colorReset)
 	}
 
 	selectedEnvName := envName
@@ -138,14 +139,14 @@ func NewRunner(filePath, envName, stateFile string) (*Runner, error) {
 			availableEnvs = append(availableEnvs, name)
 			if name == envName {
 				if err := config.Environments.Content[i+1].Decode(&selectedEnv); err != nil {
-					return nil, fmt.Errorf("failed to decode environment %q: %w", envName, err)
+					return nil, fmt.Errorf("%sfailed to decode environment %q: %w%s", colorRed, envName, err, colorReset)
 				}
 				found = true
 				break
 			}
 		}
 		if !found {
-			return nil, fmt.Errorf("environment %q not found\nAvailable environments:\n- %s", envName, strings.Join(availableEnvs, "\n- "))
+			return nil, fmt.Errorf("%senvironment %q not found\nAvailable environments:\n- %s%s", colorRed, envName, strings.Join(availableEnvs, "\n- "), colorReset)
 		}
 	}
 
@@ -155,7 +156,7 @@ func NewRunner(filePath, envName, stateFile string) (*Runner, error) {
 		Environment: selectedEnv,
 		State:       loadState(selectedEnvName, stateFile),
 		StateFile:   stateFile,
-		HTTPClient:  &http.Client{Timeout: 10 * time.Second},
+		HTTPClient:  &http.Client{Timeout: timeout},
 	}, nil
 }
 
@@ -163,7 +164,7 @@ func NewRunner(filePath, envName, stateFile string) (*Runner, error) {
 func (r *Runner) ExecuteGroup(groupName string) error {
 	group, ok := r.Config.Groups[groupName]
 	if !ok {
-		return fmt.Errorf("group %q not found", groupName)
+		return fmt.Errorf("%sgroup %q not found%s", colorRed, groupName, colorReset)
 	}
 
 	for _, reqName := range group {
@@ -187,7 +188,7 @@ func (r *Runner) ExecuteRequests(reqNames string) error {
 
 	requestsNode := r.Config.Requests
 	if requestsNode.Kind != yaml.MappingNode {
-		return fmt.Errorf("requests must be a mapping")
+		return fmt.Errorf("%srequests must be a mapping%s", colorRed, colorReset)
 	}
 
 	for i := 0; i < len(requestsNode.Content); i += 2 {
@@ -202,12 +203,12 @@ func (r *Runner) ExecuteRequests(reqNames string) error {
 
 		var req Request
 		if err := valNode.Decode(&req); err != nil {
-			return fmt.Errorf("failed to decode request %q: %w", name, err)
+			return fmt.Errorf("%sfailed to decode request %q: %w%s", colorRed, name, err, colorReset)
 		}
 
 		fmt.Printf("\n%s--- %s[%s]%s %s ---%s\n", colorBold, colorCyan, name, colorReset, req.Description, colorReset)
 		if err := r.executeRequest(name, req); err != nil {
-			log.Printf("Warning: request %q failed: %v", name, err)
+			return err
 		}
 	}
 
@@ -218,7 +219,7 @@ func (r *Runner) ExecuteRequests(reqNames string) error {
 		}
 	}
 	if len(missing) > 0 {
-		return fmt.Errorf("requests not found: %s", strings.Join(missing, ", "))
+		return fmt.Errorf("%srequests not found: %s%s", colorRed, strings.Join(missing, ", "), colorReset)
 	}
 
 	return nil
@@ -231,7 +232,7 @@ func (r *Runner) executeRequest(name string, req Request) error {
 	if req.Params != nil {
 		u, err := url.Parse(rawURL)
 		if err != nil {
-			return fmt.Errorf("failed to parse URL %q: %w", rawURL, err)
+			return fmt.Errorf("%sfailed to parse URL %q: %w%s", colorRed, rawURL, err, colorReset)
 		}
 		q := u.Query()
 		params := r.substituteMap(req.Params)
@@ -281,13 +282,13 @@ func (r *Runner) executeRequest(name string, req Request) error {
 			substitutedPath := r.substitute(path)
 			file, err := os.Open(substitutedPath)
 			if err != nil {
-				return fmt.Errorf("failed to open file %q: %w", substitutedPath, err)
+				return fmt.Errorf("%sfailed to open file %q: %w%s", colorRed, substitutedPath, err, colorReset)
 			}
 			defer file.Close()
 
 			part, err := writer.CreateFormFile(field, substitutedPath)
 			if err != nil {
-				return fmt.Errorf("failed to create form file for %q: %w", field, err)
+				return fmt.Errorf("%sfailed to create form file for %q: %w%s", colorRed, field, err, colorReset)
 			}
 			_, _ = io.Copy(part, file)
 		}
@@ -307,7 +308,7 @@ func (r *Runner) executeRequest(name string, req Request) error {
 
 	httpReq, err := http.NewRequest(req.Method, rawURL, bodyReader)
 	if err != nil {
-		return fmt.Errorf("failed to create HTTP request: %w", err)
+		return fmt.Errorf("%sfailed to create HTTP request: %w%s", colorRed, err, colorReset)
 	}
 
 	if contentType != "" {
@@ -321,7 +322,10 @@ func (r *Runner) executeRequest(name string, req Request) error {
 	startTime := time.Now()
 	resp, err := r.HTTPClient.Do(httpReq)
 	if err != nil {
-		return fmt.Errorf("request failed: %w", err)
+		if os.IsTimeout(err) {
+			return fmt.Errorf("%srequest timed out after %v%s", colorRed, r.HTTPClient.Timeout, colorReset)
+		}
+		return fmt.Errorf("%srequest failed: %w%s", colorRed, err, colorReset)
 	}
 	duration := time.Since(startTime)
 	defer resp.Body.Close()
@@ -344,7 +348,7 @@ func (r *Runner) executeRequest(name string, req Request) error {
 
 	respData, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return fmt.Errorf("failed to read response body: %w", err)
+		return fmt.Errorf("%sfailed to read response body: %w%s", colorRed, err, colorReset)
 	}
 
 	if len(respData) > 0 {

@@ -61,6 +61,8 @@ This hierarchy (System > .env > YAML > State) is designed for **dynamic runtime 
 *   `-req`: Comma-separated list of request names to execute.
 *   `-group`: The name of a request group to execute.
 *   `-headers`: Show response headers in the output.
+*   `-timeout`: Request timeout duration (default: 10s).
+*   `-state`: Path to state file.
 
 ## Core Concepts
 
