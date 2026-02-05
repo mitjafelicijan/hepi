@@ -62,7 +62,7 @@ This hierarchy (System > .env > YAML > State) is designed for **dynamic runtime 
 *   `-group`: The name of a request group to execute.
 *   `-headers`: Show response headers in the output.
 *   `-timeout`: Request timeout duration (default: 10s).
-*   `-state`: Path to state file.
+*   `-state`: Path to state file (default: .hepi.json).
 
 ## Core Concepts
 
