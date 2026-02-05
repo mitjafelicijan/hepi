@@ -1,0 +1,9 @@
+environments:
+  local:
+    host: http://localhost:8080
+
+requests:
+  broken_req:
+    method: GET
+    url: {{host}}/api/test  # This should fail
+    description: This request has unquoted braces

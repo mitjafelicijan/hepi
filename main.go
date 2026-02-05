@@ -59,36 +59,41 @@ type Runner struct {
 	Config      Config
 	EnvName     string
 	Environment map[string]interface{}
-	Results     map[string]interface{}
+	State       map[string]interface{}
 	HTTPClient  *http.Client
 	ShowHeaders bool
+	StateFile   string
 }
-
-const resultsFile = ".hepi.json"
 
 func main() {
 	godotenv.Load()
 
-	envName := flag.String("env", "", "Environment to use")
-	filePath := flag.String("file", "", "Path to the YAML file")
+	var envName string
+	flag.StringVar(&envName, "env", "", "Environment to use")
+
+	var filePath string
+	flag.StringVar(&filePath, "file", "", "Path to the YAML file")
+
+	var statePath string
+	flag.StringVar(&statePath, "state", ".hepi.json", "Path to state file")
 	reqNames := flag.String("req", "", "Comma-separated list of request names to execute")
 	groupName := flag.String("group", "", "Group to execute")
 	showHeaders := flag.Bool("headers", false, "Display response headers")
 	flag.Parse()
 
-	if *filePath == "" || *envName == "" {
-		fmt.Printf("Error: -file and -env are required\n\n")
+	if filePath == "" {
+		fmt.Printf("Error: -file is required\n\n")
 		fmt.Printf("Usage: %s -env <environment> -file <file_path> [options]\n", os.Args[0])
 		os.Exit(1)
 	}
 
-	runner, err := NewRunner(*filePath, *envName)
+	runner, err := NewRunner(filePath, envName, statePath)
 	if err != nil {
 		log.Fatalf("Error: %v", err)
 	}
 	runner.ShowHeaders = *showHeaders
 
-	if *reqNames == "" && *groupName == "" {
+	if envName == "" {
 		runner.PrintHelp()
 		return
 	}
@@ -107,7 +112,7 @@ func main() {
 }
 
 // NewRunner initializes a new Hepi runner.
-func NewRunner(filePath, envName string) (*Runner, error) {
+func NewRunner(filePath, envName, stateFile string) (*Runner, error) {
 	data, err := os.ReadFile(filePath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read file: %w", err)
@@ -124,25 +129,32 @@ func NewRunner(filePath, envName string) (*Runner, error) {
 
 	selectedEnvName := envName
 	var selectedEnv map[string]interface{}
-	found := false
-	for i := 0; i < len(config.Environments.Content); i += 2 {
-		if config.Environments.Content[i].Value == envName {
-			if err := config.Environments.Content[i+1].Decode(&selectedEnv); err != nil {
-				return nil, fmt.Errorf("failed to decode environment %q: %w", envName, err)
+
+	if envName != "" {
+		found := false
+		var availableEnvs []string
+		for i := 0; i < len(config.Environments.Content); i += 2 {
+			name := config.Environments.Content[i].Value
+			availableEnvs = append(availableEnvs, name)
+			if name == envName {
+				if err := config.Environments.Content[i+1].Decode(&selectedEnv); err != nil {
+					return nil, fmt.Errorf("failed to decode environment %q: %w", envName, err)
+				}
+				found = true
+				break
 			}
-			found = true
-			break
 		}
-	}
-	if !found {
-		return nil, fmt.Errorf("environment %q not found", envName)
+		if !found {
+			return nil, fmt.Errorf("environment %q not found\nAvailable environments:\n- %s", envName, strings.Join(availableEnvs, "\n- "))
+		}
 	}
 
 	return &Runner{
 		Config:      config,
 		EnvName:     selectedEnvName,
 		Environment: selectedEnv,
-		Results:     loadResults(selectedEnvName),
+		State:       loadState(selectedEnvName, stateFile),
+		StateFile:   stateFile,
 		HTTPClient:  &http.Client{Timeout: 10 * time.Second},
 	}, nil
 }
@@ -170,6 +182,9 @@ func (r *Runner) ExecuteRequests(reqNames string) error {
 		filter[strings.TrimSpace(name)] = true
 	}
 
+	// Validate that all requested requests exist
+	foundRequests := make(map[string]bool)
+
 	requestsNode := r.Config.Requests
 	if requestsNode.Kind != yaml.MappingNode {
 		return fmt.Errorf("requests must be a mapping")
@@ -183,6 +198,7 @@ func (r *Runner) ExecuteRequests(reqNames string) error {
 		if !filter[name] {
 			continue
 		}
+		foundRequests[name] = true
 
 		var req Request
 		if err := valNode.Decode(&req); err != nil {
@@ -193,6 +209,16 @@ func (r *Runner) ExecuteRequests(reqNames string) error {
 		if err := r.executeRequest(name, req); err != nil {
 			log.Printf("Warning: request %q failed: %v", name, err)
 		}
+	}
+
+	var missing []string
+	for req := range filter {
+		if !foundRequests[req] {
+			missing = append(missing, req)
+		}
+	}
+	if len(missing) > 0 {
+		return fmt.Errorf("requests not found: %s", strings.Join(missing, ", "))
 	}
 
 	return nil
@@ -325,8 +351,8 @@ func (r *Runner) executeRequest(name string, req Request) error {
 		var result interface{}
 		if err := json.Unmarshal(respData, &result); err == nil {
 			result = decodeRecursive(result)
-			r.Results[name] = result
-			saveResults(r.EnvName, r.Results)
+			r.State[name] = result
+			r.saveState()
 			fmt.Printf("\n%sResponse:%s\n", colorBold, colorReset)
 
 			var enc *jsoncolor.Encoder
@@ -396,7 +422,7 @@ func (r *Runner) substitute(s string) string {
 		// Priority 3: Previous Request Results
 		parts := strings.Split(key, ".")
 		if len(parts) > 1 {
-			if res, ok := r.Results[parts[0]]; ok {
+			if res, ok := r.State[parts[0]]; ok {
 				return getValueFromMap(res, parts[1:])
 			}
 		}
@@ -478,37 +504,37 @@ func (r *Runner) PrintHelp() {
 	fmt.Printf("\nUsage:\n  %s -env <environment> -file <file_path> -req <request1,request2,...> -group <group_name> -headers\n", os.Args[0])
 }
 
-func loadResults(envName string) map[string]interface{} {
-	allResults := make(map[string]map[string]interface{})
-	data, err := os.ReadFile(resultsFile)
+func loadState(envName, stateFile string) map[string]interface{} {
+	allStates := make(map[string]map[string]interface{})
+	data, err := os.ReadFile(stateFile)
 	if err != nil {
 		return make(map[string]interface{})
 	}
-	json.Unmarshal(data, &allResults)
+	json.Unmarshal(data, &allStates)
 
-	if res, ok := allResults[envName]; ok {
+	if res, ok := allStates[envName]; ok {
 		return res
 	}
 	return make(map[string]interface{})
 }
 
-func saveResults(envName string, results map[string]interface{}) {
-	allResults := make(map[string]map[string]interface{})
-	data, err := os.ReadFile(resultsFile)
+func (r *Runner) saveState() {
+	allStates := make(map[string]map[string]interface{})
+	data, err := os.ReadFile(r.StateFile)
 	if err == nil {
-		json.Unmarshal(data, &allResults)
+		json.Unmarshal(data, &allStates)
 	}
 
-	allResults[envName] = results
+	allStates[r.EnvName] = r.State
 
-	output, err := json.MarshalIndent(allResults, "", "  ")
+	output, err := json.MarshalIndent(allStates, "", "  ")
 	if err != nil {
-		log.Printf("failed to marshal results: %v", err)
+		log.Printf("failed to marshal state: %v", err)
 		return
 	}
-	err = os.WriteFile(resultsFile, output, 0644)
+	err = os.WriteFile(r.StateFile, output, 0644)
 	if err != nil {
-		log.Printf("failed to save results: %v", err)
+		log.Printf("failed to save state: %v", err)
 	}
 }
 

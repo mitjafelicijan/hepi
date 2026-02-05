@@ -1,4 +1,4 @@
-Hepi is a command-line tool for testing REST APIs using YAML-based configurations. It supports environment management, dynamic data generation, and response chaining, allowing you to build complex test scenarios where results from one request are used in subsequent ones.
+Hepi is a command-line tool for testing REST APIs using YAML-based configurations. It supports environment management, dynamic data generation, and response chaining, allowing you to build complex test scenarios where results/state from one request is used in subsequent ones.
 
 ## Installation
 
@@ -44,11 +44,11 @@ When resolving `{{variable}}` placeholders, Hepi follows a strict lookup sequenc
 1.  **System Environment**: Variables set in your shell or passed as command-line prefixes (e.g., `HOST=... go run ...`).
 2.  **Local `.env` File**: Variables loaded from a `.env` file in the current directory. These provide defaults that can be overridden by the system environment.
 3.  **YAML Environment**: Variables defined within the specific `environments` block selected via the `-env` flag.
-4.  **Persistent Results**: Key-value pairs stored in `.hepi.json` from previous request executions (accessed via `{{request_name.path.to.key}}`).
+4.  **Persistent State**: Key-value pairs stored in `.hepi.json` from previous request executions (accessed via `{{request_name.path.to.key}}`).
 
 #### Rationale
 
-This hierarchy (System > .env > YAML > Results) is designed for **dynamic runtime overrides**:
+This hierarchy (System > .env > YAML > State) is designed for **dynamic runtime overrides**:
 *   **Non-destructive testing**: Override values from the CLI without modifying the static YAML configuration.
 *   **Secret Management**: Keep sensitive credentials in the environment or `.env` files to avoid committing them to version control.
 *   **CI/CD Integration**: Automated pipelines can inject configuration via environment variables which seamlessly take precedence.
@@ -87,11 +87,11 @@ Hepi uses two types of placeholders:
 1.  **`{{variable}}`**: Used for substituting values from:
     *   **Environment Variables**: Values from a `.env` file (loaded automatically if present) or system environment variables.
     *   **Config Variables**: Variables defined in the `environments` section of the YAML.
-    *   **Request Results**: Values captured from previous request responses (e.g., `{{login_req.token}}`). For arrays, use index notation (e.g., `{{setup_project.members.0.name}}`).
+    *   **Request State**: Values captured from previous request responses (e.g., `{{login_req.token}}`). For arrays, use index notation (e.g., `{{setup_project.members.0.name}}`).
 2.  **`[[generator]]`**: Used for generating dynamic data (e.g., `[[email]]`, `[[name]]`).
 3.  **`[[oneof: a, b, c]]`**: Randomly selects one of the provided values.
 
-### Result Chaining (Persistence)
+### State Chaining (Persistence)
 
 When a request is executed, its response (if it's JSON) is stored in a local `.hepi.json` file. This allows subsequent requests to reference any field from the response using the `{{request_name.path.to.field}}` syntax.
 
@@ -130,7 +130,7 @@ Hepi includes a wide range of generators for dynamic data. You can use these by 
 
 *Refer to `generators.go` for the latest implementation of these functions.*
 
-## Persistence File
+## State File
 
 Hepi stores response data in `.hepi.json` in the current directory. This file is updated after every successful request that returns a JSON response. You can inspect this file or delete it to clear the "memory" of previous requests.
 
@@ -197,7 +197,7 @@ To execute this request:
 hepi -env local -file test.yaml -req create_user
 ```
 
-### 3. Result Chaining (Persistence)
+### 3. State Chaining (Persistence)
 
 This scenario shows a full authentication flow where the token from the login response is reused in a subsequent request.
 
@@ -268,7 +268,7 @@ hepi -env local -file test.yaml -req search_items
 
 ### 5. Nested JSON, Arrays, and Header Subscriptions
 
-Showing how to handle complex data structures and reuse specific nested fields from previous results.
+Showing how to handle complex data structures and reuse specific nested fields from previous state.
 
 ```yaml
 environments:
