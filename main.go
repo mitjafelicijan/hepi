@@ -94,6 +94,12 @@ func main() {
 	}
 	runner.ShowHeaders = *showHeaders
 
+	if *groupName == "" && *reqNames == "" {
+		fmt.Printf("Error: -group or -req is required\n\n")
+		runner.PrintHelp()
+		os.Exit(0)
+	}
+
 	if envName == "" {
 		runner.PrintHelp()
 		return
@@ -203,6 +209,9 @@ func (r *Runner) ExecuteRequests(reqNames string) error {
 
 		var req Request
 		if err := valNode.Decode(&req); err != nil {
+			if strings.Contains(err.Error(), "invalid map key") {
+				return fmt.Errorf("%sfailed to decode request %q: %w\n%sHint: Check for unquoted template variables like {{foo}} used as values%s", colorRed, name, err, colorYellow, colorReset)
+			}
 			return fmt.Errorf("%sfailed to decode request %q: %w%s", colorRed, name, err, colorReset)
 		}
 
