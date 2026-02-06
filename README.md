@@ -6,6 +6,38 @@ Hepi is a command-line tool for testing REST APIs using YAML-based configuration
 go install github.com/mitjafelicijan/hepi@latest
 ```
 
+## Basic example
+
+```yaml
+environments:
+  local:
+    host: http://localhost:8080
+
+requests:
+  login:
+    method: POST
+    url: "{{host}}/v1/auth/login"
+    description: "Authenticate and get a token"
+    headers:
+      Content-Type: "application/json"
+    json:
+      username: "admin"
+      password: "secret-password"
+
+  get_profile:
+    method: GET
+    url: "{{host}}/v1/profile"
+    description: "Fetch user profile using the token from login"
+    headers:
+      Authorization: "Bearer {{login.token}}"
+      Accept: "application/json"
+
+groups:
+  auth_flow:
+    - login
+    - get_profile
+```
+
 ## CLI Usage
 
 ### Basic Usage
