@@ -1,4 +1,4 @@
-module hepi
+module github.com/mitjafelicijan/hepi
 
 go 1.25.6
 
